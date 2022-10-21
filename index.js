@@ -1,13 +1,14 @@
 // Example express application adding the parse-server module to expose Parse
 // compatible API routes.
-
+require('dotenv').config();
 const express = require('express');
 const ParseServer = require('parse-server').ParseServer;
 const path = require('path');
+const { exit } = require('process');
 const args = process.argv || [];
 const test = args.some(arg => arg.includes('jasmine'));
 
-const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+const databaseUri = process.env.DB_URI;
 
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
@@ -22,6 +23,8 @@ const config = {
     classNames: ['Posts', 'Comments'], // List of classes to support for query subscriptions
   },
 };
+console.log('config', config);
+// exit(0);
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
 // javascriptKey, restAPIKey, dotNetKey, clientKey
@@ -49,7 +52,7 @@ app.get('/test', function (req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
 
-const port = process.env.PORT || 1337;
+const port = process.env.SERVER_PORT || 1337;
 if (!test) {
   const httpServer = require('http').createServer(app);
   httpServer.listen(port, function () {
