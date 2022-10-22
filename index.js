@@ -3,6 +3,7 @@
 require('dotenv').config();
 const express = require('express');
 const ParseServer = require('parse-server').ParseServer;
+const ParseDashboard = require('parse-dashboard');
 const path = require('path');
 const { exit } = require('process');
 const args = process.argv || [];
@@ -23,6 +24,19 @@ const config = {
     classNames: ['Posts', 'Comments'], // List of classes to support for query subscriptions
   },
 };
+const options = {
+  allowInsecureHTTP: true,
+};
+const parseConfig = {
+  "apps": [
+    {
+      "serverURL": process.env.SERVER_URL,
+      "appId": process.env.APP_ID,
+      "masterKey": process.env.MASTER_KEY,
+      "appName": process.env.APP_NAME
+    }
+  ]
+};
 
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
@@ -37,7 +51,9 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 const mountPath = process.env.PARSE_MOUNT || '/parse';
 if (!test) {
   const api = new ParseServer(config);
+  const dashboard = new ParseDashboard(parseConfig, options);
   app.use(mountPath, api);
+  app.use('/dashboard', dashboard);
 }
 
 // Parse Server plays nicely with the rest of your web routes
