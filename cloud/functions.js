@@ -25,6 +25,12 @@ Parse.Cloud.define('login', async req => {
 });
 
 Parse.Cloud.define('fetchLandmarks', async req => {
+  if (req.params.objectId) {
+    const query = new Parse.Query('Landmark');
+    query.equalTo('objectId', req.params.objectId);
+    const results = await query.find();
+    return results;
+  }
   const query = new Parse.Query("Landmark").ascending("order");
   const landmarks = await query.find();
   return landmarks;
