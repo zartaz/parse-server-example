@@ -1,3 +1,5 @@
+const { ConsoleReporter } = require("jasmine");
+
 Parse.Cloud.define('hello', req => {
   req.log.info(req);
   return 'Hi';
@@ -11,4 +13,15 @@ Parse.Cloud.define('asyncFunction', async req => {
 
 Parse.Cloud.beforeSave('Test', () => {
   throw new Parse.Error(9001, 'Saving test objects is not available.');
+});
+
+Parse.Cloud.define('login', async req => {
+  const user = await Parse.User.logIn(req.params.username, req.params.password);
+  const sessionToken = user.getSessionToken();
+  const userId = user.id;
+  const data = {
+    "objectId": userId,
+    "sessionToken": sessionToken
+  }
+  return data;
 });
