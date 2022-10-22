@@ -5,7 +5,6 @@ const express = require('express');
 const ParseServer = require('parse-server').ParseServer;
 const ParseDashboard = require('parse-dashboard');
 const path = require('path');
-const { exit } = require('process');
 const args = process.argv || [];
 const test = args.some(arg => arg.includes('jasmine'));
 

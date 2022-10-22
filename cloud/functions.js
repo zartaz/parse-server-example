@@ -1,5 +1,3 @@
-const { ConsoleReporter } = require("jasmine");
-
 Parse.Cloud.define('hello', req => {
   req.log.info(req);
   return 'Hi';
@@ -25,3 +23,9 @@ Parse.Cloud.define('login', async req => {
   }
   return data;
 });
+
+Parse.Cloud.define('fetchLandmarks', async req => {
+  const query = new Parse.Query("Landmark").ascending("order");
+  const landmarks = await query.find();
+  return landmarks;
+})
