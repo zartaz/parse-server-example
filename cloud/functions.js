@@ -31,7 +31,15 @@ Parse.Cloud.define('fetchLandmarks', async req => {
     const results = await query.find();
     return results;
   }
+  // https://github.com/parse-community/parse-server/issues/7281 based on that issue, i cant exlude in database level some fields,this will be done in api level
   const query = new Parse.Query("Landmark").ascending("order");
+  query.select("title", "short_info", "photo_thumb", "photo");
   const landmarks = await query.find();
-  return landmarks;
+  const results = landmarks.map(landmark => {
+    // using map to exclude some fields with parse.object.attributes to filter more
+    const { title, short_info, photo_thumb, photo } = landmark.attributes;
+    return { title, short_info, photo_thumb, photo };
+  });
+  return results;
+
 })
