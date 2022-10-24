@@ -41,13 +41,38 @@ const parseConfig = {
 
 };
 const app = express();
+const bantable = {
+  IpBanned: false
+};
 const sendMessageRateLimiterMiddleware = rateLimit({
   windowsMs: 60 * 1000 * 15,
-  max: 5,
+  max: 1,
   message: 'You have exceeded 5 false password attempts, please try again after 15 minutes',
   standardHeaders: true,
   legacyHeaders: false,
-  skipSuccessfulRequests: true
+  skipSuccessfulRequests: true,
+  requestWasSuccessful: (req, res) => {
+    const username = req.query.username;
+    const status = res.statusCode;
+    console.log(username, status);
+    if (status > 400) {
+      bantable[username] = bantable[username] + 1 || 1;
+      console.log(bantable);
+      Object.keys(bantable).forEach((key) => {
+        if (bantable[key] === 5) {
+          bantable.IpBanned = true;
+          console.log(bantable);
+          delete bantable[key];
+        }
+      });
+    }
+    if (bantable.IpBanned) {
+      bantable.IpBanned = false;
+      return false;
+    } else {
+      return true;
+    }
+  }
 });
 
 

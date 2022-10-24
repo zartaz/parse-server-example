@@ -58,7 +58,18 @@ Parse.Cloud.define('saveLandmark', async req => {
   const queryLandmark = new Parse.Query('Landmark');
   queryLandmark.equalTo('objectId', req.params.objectId);
   const landmark = await queryLandmark.first();
-  landmark.set('title', req.params.title);
+  if(req.params.title) {
+    landmark.set('title', req.params.title);
+  }
+  if(req.params.url){
+    landmark.set('url', req.params.url);
+  }
+  if(req.params.short_info){
+    landmark.set('short_info', req.params.short_info);
+  }
+  if(req.params.description){
+    landmark.set('description', req.params.description);
+  }
   return landmark.save({}, { useMasterKey: true });
 });
 
