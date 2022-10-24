@@ -13,10 +13,10 @@
 
 
 
-# ** Instructions to quick run:
+# ** Instructions to quick run: **
 ## Edit the .env_example with the correct variables and rename it to .env
 ## Run npm install in the root folder
-# Run npm start (no need to run extra script for dashboard is included in index and alive at /dashboard ) **
+# ** Run npm start (no need to run extra script for dashboard is included in index and alive at /dashboard ) **
 
 ---
 
