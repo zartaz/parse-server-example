@@ -13,15 +13,10 @@
 
 
 
-Instructions to quick run:
-Edit the .env_example with the correct variables and rename it to .env
-Run npm install in the root folder
-Run npm start (no need to run extra script for dashboard is included in index and alive at /dashboard )
-
-
-
-This is an example project using the [Parse Server](https://github.com/ParsePlatform/parse-server) module on Express.
-The [Parse Server guide](https://docs.parseplatform.org/parse-server/guide/) is a good place to get started. An [API reference](https://parseplatform.org/parse-server/api/) and [Cloud Code guide](https://docs.parseplatform.org/cloudcode/guide/) are also available. If you're interested in developing for Parse Server, the [Development guide](https://docs.parseplatform.org/parse-server/guide/#development-guide) will help you get set up. All documentations for Parse Platform's server and its client SDKs are available at [parseplatform.org](https://parseplatform.org). 
+# Instructions to quick run:
+## Edit the .env_example with the correct variables and rename it to .env
+## Run npm install in the root folder
+# Run npm start (no need to run extra script for dashboard is included in index and alive at /dashboard )
 
 ---
 
