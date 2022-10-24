@@ -54,8 +54,7 @@ const sendMessageRateLimiterMiddleware = rateLimit({
   requestWasSuccessful: (req, res) => {
     const username = req.query.username;
     const status = res.statusCode;
-    console.log(username, status);
-    if (status > 400) {
+    if (status > 400 && username) {
       bantable[username] = bantable[username] + 1 || 1;
       console.log(bantable);
       Object.keys(bantable).forEach((key) => {
