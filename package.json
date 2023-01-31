@@ -23,7 +23,7 @@
     "express-rate-limit": "^6.6.0",
     "parse": "3.4.2",
     "parse-dashboard": "^4.2.0",
-    "parse-server": "5.2.1"
+    "parse-server": "5.4.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.17.0",
